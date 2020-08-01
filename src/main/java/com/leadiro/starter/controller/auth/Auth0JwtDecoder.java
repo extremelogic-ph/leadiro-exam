@@ -13,7 +13,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Component;
+// import org.springframework.stereotype.Component;
 
 import java.security.interfaces.RSAPublicKey;
 import java.util.Collections;
@@ -23,7 +23,8 @@ import java.util.Map;
 /**
  * Get the claims from a JWT token, validating it at the same time.
  */
-@Component
+// TODO This component is temporarily removed, reverting to basic auth.
+// @Component
 public class Auth0JwtDecoder implements JwtDecoder {
     private static final String AUTH0_TENANT = "https://leadiro.eu.auth0.com/";
     private final Map<String, Jwk> keys = new HashMap<>();

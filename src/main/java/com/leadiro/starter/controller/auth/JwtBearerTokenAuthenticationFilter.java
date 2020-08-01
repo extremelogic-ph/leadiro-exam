@@ -6,7 +6,7 @@ import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
+//import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -19,7 +19,8 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 /**
  * Decode a JWT token held in the Authorization header and place the associated Authentication in the SecurityContextHolder.
  */
-@Component
+// TODO This component is temporarily removed, reverting to basic auth.
+// @Component
 @Slf4j
 @SuppressWarnings("NullableProblems")
 public class JwtBearerTokenAuthenticationFilter extends OncePerRequestFilter {

@@ -30,7 +30,20 @@ spring:
     allow-bean-definition-overriding: true
     banner-mode: "off"
 
+security:
+  login:
+    # Entry below is temporary and is not advised to be here
+    # but for simplicity and compliance to the requirement that it must be configurable
+    # then this will do. Override via environment variable if needed.
+    username: admin
+    password: '{noop}password123'
+    role: ADMIN
+exam:
+  validation:
+    postal:
+      email-pattern: '[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}'
+      url: 'https://api.postcodes.io/postcodes/:postcode/validate'
 
-
-
-
+  data:
+    source:
+      url: 'https://collections.museumsvictoria.com.au/api/search'

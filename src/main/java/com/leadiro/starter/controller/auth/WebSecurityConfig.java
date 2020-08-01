@@ -2,21 +2,30 @@ package com.leadiro.starter.controller.auth;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+//import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @Slf4j
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired private JwtBearerTokenAuthenticationFilter jwtFilter;
+    //@Autowired private JwtBearerTokenAuthenticationFilter jwtFilter;
+
+    @Value("${security.login.username}")
+    private String userName;
+    @Value("${security.login.password}")
+    private String password;
+    @Value("${security.login.role}")
+    private String role;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -28,8 +37,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+                .httpBasic()
+                .and()
             //Add the custom JWT filter
-            .addFilterBefore(jwtFilter, BasicAuthenticationFilter.class)
+            //.addFilterBefore(jwtFilter, BasicAuthenticationFilter.class)
             //Configure URLs
             .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS).permitAll() //Allow all CORS OPTIONS request
@@ -38,5 +49,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/index.html", "/img/*.png", "/js/*.js", "/css/*.css").permitAll() //Allow access static Vue resources
                 .anyRequest().authenticated(); //Force auth for everything else
     }
-
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth)
+            throws Exception
+    {
+        auth.inMemoryAuthentication()
+                .withUser(this.userName)
+                .password(this.password)
+                .roles(this.role);
+    }
 }
