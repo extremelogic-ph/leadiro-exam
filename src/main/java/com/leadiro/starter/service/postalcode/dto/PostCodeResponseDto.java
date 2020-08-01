@@ -7,7 +7,7 @@ public class PostCodeResponseDto {
     /**
      * Http status code.
      */
-    private Long status;
+    private Integer status;
 
     /**
      * Error message.
@@ -15,7 +15,7 @@ public class PostCodeResponseDto {
     private String error;
 
     /**
-     * Result flag, true if valid otherwise false.
+     * Details about the post code are stored here.
      */
-    private Boolean result;
+    private PostCodeResultDto result;
 }

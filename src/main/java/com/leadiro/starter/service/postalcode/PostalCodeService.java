@@ -8,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
@@ -33,7 +34,13 @@ public class PostalCodeService {
         HttpEntity<PostCodeResponseDto> entity = new HttpEntity<>(headers);
         String apiUrl = this.url.replace(":postcode", postCode);
         log.debug("validatePostCode {},{}", postCode, apiUrl);
-        return restTemplate.exchange(apiUrl, HttpMethod.GET, entity,
-                PostCodeResponseDto.class).getBody();
+        try {
+            return restTemplate.exchange(apiUrl, HttpMethod.GET, entity,
+                    PostCodeResponseDto.class).getBody();
+        } catch (HttpClientErrorException e) {
+            PostCodeResponseDto responseDto = new PostCodeResponseDto();
+            responseDto.setStatus(e.getStatusCode().value());
+            return responseDto;
+        }
     }
 }

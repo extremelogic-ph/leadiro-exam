@@ -2,7 +2,9 @@ package com.leadiro.starter.service;
 
 import com.leadiro.starter.dto.ValidationResponseDto;
 import com.leadiro.starter.service.postalcode.PostalCodeService;
+import com.leadiro.starter.service.postalcode.dto.PostCodeDetailDto;
 import com.leadiro.starter.service.postalcode.dto.PostCodeResponseDto;
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -51,11 +53,18 @@ public class ValidateService {
      * @param postCode Post code to validate
      * @return Status/Validation object
      */
-    public ValidationResponseDto validatePostCode(final String postCode) {
-        ValidationResponseDto responseDto = new ValidationResponseDto();
+    public PostCodeDetailDto validatePostCode(final String postCode) {
+        PostCodeDetailDto detailDto = new PostCodeDetailDto();
         PostCodeResponseDto codeResponseDto =
                 postalCodeService.validatePostCode(postCode);
-        responseDto.setValid(codeResponseDto.getResult());
-        return responseDto;
+        if (Response.SC_OK == codeResponseDto.getStatus()) {
+            detailDto.setValid(true);
+            detailDto.setResult(codeResponseDto.getResult());
+
+        } else {
+            detailDto.setValid(false);
+            detailDto.setResult(null);
+        }
+        return detailDto;
     }
 }
