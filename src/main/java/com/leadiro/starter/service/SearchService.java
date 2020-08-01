@@ -2,6 +2,7 @@ package com.leadiro.starter.service;
 
 import com.leadiro.starter.service.search.FetchDataService;
 import com.leadiro.starter.service.search.dto.MediaDto;
+import com.leadiro.starter.service.search.dto.SearchByKeywordDto;
 import com.leadiro.starter.service.search.dto.SearchDocumentResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,19 +17,27 @@ public class SearchService {
     @Autowired
     private FetchDataService fetchDataService;
 
-    public List<SearchDocumentResponseDto> searchByKeywords(List<String> keywords) {
+    public List<SearchByKeywordDto> searchByKeywords(List<String> keywords) {
         List <SearchDocumentResponseDto> data = fetchDataService.fetchData();
-        List <SearchDocumentResponseDto> result= new ArrayList<>();
+        List <SearchByKeywordDto> result= new ArrayList<>();
+        List <Integer> usedIndex = new ArrayList<>();
+        int mainRecordIndex;
         // TODO XXX Optimize by querying JSON document like in MongoDb
         // Make it work for now for test purposes.
         for (String searchKeyword : keywords) {
+            mainRecordIndex = 0;
             for (SearchDocumentResponseDto item: data) {
                 String keyword = "|" + searchKeyword.toLowerCase() + "|";
-                if (item.getFlattenKeywords().contains(keyword)) {
-                    log.info("flattened keywords: {}", item.getFlattenKeywords());
-                    log.info("keyword: {}", keyword);
-                    result.add(item);
+                if (item.getFlattenKeywords().contains(keyword) && !usedIndex.contains(mainRecordIndex)) {
+                    for (MediaDto mediaDto : item.getMedia()) {
+                        SearchByKeywordDto keywordDto = new SearchByKeywordDto();
+                        keywordDto.setId(mediaDto.getId());
+                        keywordDto.setCaption(mediaDto.getCaption());
+                        result.add(keywordDto);
+                        usedIndex.add(mainRecordIndex);
+                    }
                 }
+                mainRecordIndex++;
             }
         }
         return result;
