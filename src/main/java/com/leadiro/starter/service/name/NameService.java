@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class NameCleanService {
+public class NameService {
     /**
      * Process a list of names.
      * @param names List of names

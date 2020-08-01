@@ -1,6 +1,6 @@
 package com.leadiro.starter.controller
 
-import com.leadiro.starter.service.name.NameCleanService
+import com.leadiro.starter.service.name.NameService
 import groovy.transform.CompileStatic
 import lombok.extern.slf4j.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,13 +18,13 @@ public class NameCleanController {
      * Use name clean service.
      */
     @Autowired
-    private NameCleanService nameCleanService;
+    private NameService nameService;
 
     @PostMapping(value = "/parse/name")
     def parseName(
             @RequestBody(required = true)
             final List<String> names) {
-        return nameCleanService.processNames(names);
+        return nameService.processNames(names);
     }
 }
 
