@@ -1,8 +1,6 @@
 package com.leadiro.starter.controller;
 
 import com.leadiro.starter.service.SearchService;
-import com.leadiro.starter.service.search.dto.MediaDto;
-import com.leadiro.starter.service.search.dto.SearchDocumentResponseDto;
 import groovy.transform.CompileStatic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,12 +46,5 @@ public class SearchController {
         String requestURL = request.getRequestURL().toString();
         String id = requestURL.split("/museum/")[1];
         return searchService.searchFullRecordById(id);
-    }
-
-
-    private List<MediaDto> searchFullRecordById(final String id) {
-        List<MediaDto> mediaDto;
-        mediaDto = searchService.searchFullRecordById(id);
-        return mediaDto;
     }
 }
