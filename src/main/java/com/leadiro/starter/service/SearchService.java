@@ -43,18 +43,18 @@ public class SearchService {
         return result;
     }
 
-    public List<MediaDto> searchFullRecordById(final String id) {
+    public SearchDocumentResponseDto searchFullRecordById(final String id) {
         List <SearchDocumentResponseDto> data = fetchDataService.fetchData();
-        List <MediaDto> result= new ArrayList<>();
+        //SearchDocumentResponseDto result = new SearchDocumentResponseDto();
         // TODO XXX Optimize by querying JSON document like in MongoDb
         // Make it work for now for test purposes.
         for (SearchDocumentResponseDto item: data) {
             for (MediaDto media : item.getMedia() ) {
                 if (media.getId().equals(id)) {
-                    result.add(media);
+                    return item;
                 }
             }
         }
-        return result;
+        return null;
     }
 }
