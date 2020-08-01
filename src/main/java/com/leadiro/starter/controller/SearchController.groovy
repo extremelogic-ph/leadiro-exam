@@ -33,9 +33,7 @@ public class SearchController {
     def searchByKeyword(
             @RequestParam(value = "keyword", required = true)
             final List<String> keywords) {
-        List<SearchDocumentResponseDto> searchDocumentResponseDto;
-        searchDocumentResponseDto = searchService.searchByKeywords(keywords);
-        return searchDocumentResponseDto;
+        return searchService.searchByKeywords(keywords);
     }
 
     /**
