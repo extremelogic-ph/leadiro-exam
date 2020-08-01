@@ -10,7 +10,7 @@ public class SearchByKeywordDto {
     private String id;
 
     /**
-     * Caption or titile.
+     * Caption or title.
      */
     private String caption;
 }
