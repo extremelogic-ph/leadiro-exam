@@ -30,6 +30,7 @@ public class NameService {
         for (String name : names) {
             NameDto nameDto;
             NameProcessDto nameProcessDto = new NameProcessDto();
+            nameProcessDto.setOriginalInput(name);
             nameProcessDto.setProcessing(name);
 
             nameDto = process(nameProcessDto);

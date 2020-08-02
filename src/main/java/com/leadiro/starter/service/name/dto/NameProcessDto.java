@@ -14,4 +14,9 @@ public class NameProcessDto {
      * Processing.
      */
     private String processing;
+
+    /**
+     * Unprocessed original input.
+     */
+    private String originalInput;
 }
