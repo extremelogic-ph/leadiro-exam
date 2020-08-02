@@ -14,10 +14,11 @@ class ValidateControllerTest {
     @Test
     void validateEmail() {
         def actual = controller.validateEmail('john.doe@gmail.com')
+        println(actual.toString())
         Assertions.assertEquals("ValidationResponseDto(valid=true)", actual.toString(), "Email valid");
         actual = controller.validateEmail('john.doe@gmail')
-        Assertions.assertEquals("ValidationResponseDto(valid=false)", actual.toString(), "Email invalid");
         println(actual.toString())
+        Assertions.assertEquals("ValidationResponseDto(valid=false)", actual.toString(), "Email invalid");
     }
 
     @Test
@@ -26,7 +27,7 @@ class ValidateControllerTest {
         println(actual.toString())
         Assertions.assertEquals("PostCodeDetailDto(result=PostCodeResultDto(region=London), valid=true)", actual.toString(), "Post code valid");
         actual = controller.validatePostCode('XXXX')
-        Assertions.assertEquals("PostCodeDetailDto(result=null, valid=false)", actual.toString(), "Post code invalid");
         println(actual.toString())
+        Assertions.assertEquals("PostCodeDetailDto(result=null, valid=false)", actual.toString(), "Post code invalid");
     }
 }
