@@ -34,7 +34,9 @@ public class NameService {
             nameProcessDto.setProcessing(name);
 
             nameDto = process(nameProcessDto);
-            nameDtos.add(nameDto);
+            if (!(nameDto.getFirstName().isEmpty() && nameDto.getLastName().isEmpty())) {
+                nameDtos.add(nameDto);
+            }
         }
         return nameDtos;
     }
