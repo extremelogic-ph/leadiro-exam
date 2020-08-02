@@ -41,8 +41,6 @@ public class SearchController {
      */
     @GetMapping(value = "/museum/**")
     def search(final HttpServletRequest request) {
-        // TODO This should return only one object since this is
-        //  a search via ID. Remove list.
         String requestURL = request.getRequestURL().toString();
         String id = requestURL.split("/museum/")[1];
         return searchService.searchFullRecordById(id);
