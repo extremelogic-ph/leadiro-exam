@@ -7,10 +7,10 @@ public class NameDto {
     /**
      * First name.
      */
-    private String firstName;
+    private String firstName = "";
 
     /**
      * Last name.
      */
-    private String lastName;
+    private String lastName = "";
 }

@@ -79,4 +79,46 @@ public class NameProcessing {
                 result.getName().getLastName(), ""));
         return result;
     }
+
+    /**
+     * Process first name input.
+     * @param name Input to process
+     * @return processed input
+     */
+    public NameProcessDto processFirstName(final NameProcessDto name) {
+        String processing;
+        NameProcessDto result = name;
+        List<String> firstNameLookUp;
+        processing = result.getProcessing();
+        Boolean firstNameFound = false;
+
+        // TODO This is being loaded repeatedly. Refactor.
+        firstNameLookUp = fetchDataService.fetchFirstNames();
+
+        // TODO Permutation of input is needed here,
+        //  a last name may contain a combination of more than 1
+        //  and process longest first.
+        String[] split = processing.split(" ");
+        for (String s : split) {
+            if (firstNameLookUp.contains(s.toLowerCase())) {
+                if (firstNameFound) {
+                    // need to erase, input has multiple last names,
+                    // so now we are not sure
+                    result.getName().setFirstName(null);
+                } else {
+                    firstNameFound = true;
+                    if (null == result.getName()) {
+                        NameDto nameDto = new NameDto();
+                        nameDto.setFirstName(s);
+                        result.setName(nameDto);
+                    } else {
+                        result.getName().setFirstName(s);
+                    }
+                }
+            }
+        }
+        result.setProcessing(result.getProcessing().replace(
+                result.getName().getFirstName(), ""));
+        return result;
+    }
 }

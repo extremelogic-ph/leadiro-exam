@@ -98,6 +98,7 @@ public class FetchDataService {
         //  order of execution should also be considered
         methodCall.add("processNameSpaces");
         methodCall.add("processLastName");
+        methodCall.add("processFirstName");
         return methodCall;
     }
 }

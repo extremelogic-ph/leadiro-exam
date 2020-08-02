@@ -13,10 +13,10 @@ public class NameProcessDto {
     /**
      * Processing.
      */
-    private String processing;
+    private String processing = "";
 
     /**
      * Unprocessed original input.
      */
-    private String originalInput;
+    private String originalInput = "";
 }
