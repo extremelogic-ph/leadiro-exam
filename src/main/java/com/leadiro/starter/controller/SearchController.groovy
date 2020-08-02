@@ -1,7 +1,9 @@
 package com.leadiro.starter.controller;
 
 import com.leadiro.starter.service.SearchService;
-import groovy.transform.CompileStatic;
+import groovy.transform.CompileStatic
+import io.swagger.annotations.ApiOperation
+import io.swagger.annotations.Authorization;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,6 +30,8 @@ public class SearchController {
      * @return SearchDocumentResponseDto object
      */
     @GetMapping(value = "/museum")
+    @ApiOperation(value = "",
+            authorizations = [ @Authorization(value="basicAuth") ])
     def searchByKeyword(
             @RequestParam(value = "keyword", required = true)
             final List<String> keywords) {
@@ -40,6 +44,8 @@ public class SearchController {
      * @return search result object List<MediaDto>
      */
     @GetMapping(value = "/museum/**")
+    @ApiOperation(value = "",
+            authorizations = [ @Authorization(value="basicAuth") ])
     def search(final HttpServletRequest request) {
         // TODO This should return only one object since this is
         //  a search via ID. Remove list.

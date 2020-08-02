@@ -47,6 +47,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/public/**").permitAll() //Allow access to URLS marked as public
                 .antMatchers("/ping", "/health", "/starter/health").permitAll() //Allow access to the health pings
                 .antMatchers("/index.html", "/img/*.png", "/js/*.js", "/css/*.css").permitAll() //Allow access static Vue resources
+                .antMatchers("/v2/api-docs", "/configuration/ui",
+                "/swagger-resources/**", "/configuration/security",
+                "/swagger-ui.html", "/webjars/**").permitAll()
                 .anyRequest().authenticated(); //Force auth for everything else
     }
     @Autowired

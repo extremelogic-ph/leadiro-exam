@@ -47,3 +47,17 @@ exam:
   data:
     source:
       url: 'https://collections.museumsvictoria.com.au/api/search'
+
+  swagger:
+    info:
+      description:
+      title:
+      version:
+      termsOfService:
+      contact:
+        name:
+        url:
+        email:
+      license:
+      licenseUrl:
+    host: 'localhost:8090'

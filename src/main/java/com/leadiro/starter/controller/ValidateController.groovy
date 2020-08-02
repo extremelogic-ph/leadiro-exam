@@ -1,7 +1,9 @@
 package com.leadiro.starter.controller;
 
 import com.leadiro.starter.service.ValidateService;
-import groovy.transform.CompileStatic;
+import groovy.transform.CompileStatic
+import io.swagger.annotations.ApiOperation
+import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +26,8 @@ public class ValidateController {
      * @return Status object of validation
      */
     @GetMapping(value = "/validate/email")
+    @ApiOperation(value = "",
+            authorizations = [ @Authorization(value="basicAuth") ])
     def validateEmail(
             @RequestParam(value = "email", required = true)
             final String email) {
@@ -36,6 +40,8 @@ public class ValidateController {
      * @return Status object of validation
      */
     @GetMapping(value = "/validate/postcode")
+    @ApiOperation(value = "",
+            authorizations = [ @Authorization(value="basicAuth") ])
     def validatePostCode(
             @RequestParam(value = "postcode", required = true)
             final String postCode) {

@@ -2,6 +2,8 @@ package com.leadiro.starter.controller
 
 import com.leadiro.starter.service.name.NameService
 import groovy.transform.CompileStatic
+import io.swagger.annotations.ApiOperation
+import io.swagger.annotations.Authorization
 import lombok.extern.slf4j.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.CrossOrigin
@@ -21,6 +23,8 @@ public class NameCleanController {
     private NameService nameService;
 
     @PostMapping(value = "/parse/name")
+    @ApiOperation(value = "",
+            authorizations = [ @Authorization(value="basicAuth") ])
     def parseName(
             @RequestBody(required = true)
             final List<String> names) {
