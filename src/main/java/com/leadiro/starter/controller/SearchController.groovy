@@ -1,6 +1,6 @@
 package com.leadiro.starter.controller;
 
-import com.leadiro.starter.service.SearchService;
+import com.leadiro.starter.service.search.SearchService;
 import groovy.transform.CompileStatic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
