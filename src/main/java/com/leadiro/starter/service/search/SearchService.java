@@ -1,5 +1,6 @@
-package com.leadiro.starter.service;
+package com.leadiro.starter.service.search;
 
+import com.leadiro.starter.service.FetchDataService;
 import com.leadiro.starter.service.search.dto.MediaDto;
 import com.leadiro.starter.service.search.dto.SearchByKeywordDto;
 import com.leadiro.starter.service.search.dto.SearchDocumentResponseDto;
