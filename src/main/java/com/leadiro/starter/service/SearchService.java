@@ -1,6 +1,5 @@
 package com.leadiro.starter.service;
 
-import com.leadiro.starter.service.search.FetchDataService;
 import com.leadiro.starter.service.search.dto.MediaDto;
 import com.leadiro.starter.service.search.dto.SearchByKeywordDto;
 import com.leadiro.starter.service.search.dto.SearchDocumentResponseDto;
@@ -45,7 +44,6 @@ public class SearchService {
 
     public SearchDocumentResponseDto searchFullRecordById(final String id) {
         List <SearchDocumentResponseDto> data = fetchDataService.fetchData();
-        //SearchDocumentResponseDto result = new SearchDocumentResponseDto();
         // TODO XXX Optimize by querying JSON document like in MongoDb
         // Make it work for now for test purposes.
         for (SearchDocumentResponseDto item: data) {
