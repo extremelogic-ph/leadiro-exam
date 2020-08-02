@@ -11,12 +11,15 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO create a dynamic configurable name processing flow
 @Service
 @Slf4j
 public class NameService {
+    /**
+     * Data needed.
+     */
     @Autowired
     private FetchDataService fetchDataService;
+
     /**
      * Process a list of names.
      * @param names List of names
@@ -26,7 +29,6 @@ public class NameService {
         List<NameDto> nameDtos = new ArrayList<>();
         for (String name : names) {
             NameDto nameDto;
-            // TODO call a method here that cleanses the name
             NameProcessDto nameProcessDto = new NameProcessDto();
             nameProcessDto.setProcessing(name);
 
@@ -36,35 +38,29 @@ public class NameService {
         return nameDtos;
     }
 
-    private NameDto process(NameProcessDto name) {
+    private NameDto process(final NameProcessDto name) {
         NameProcessDto nameFlow = name;
         NameDto result = null;
 
-
         NameProcessing nameProcessingInstance = new NameProcessing();
+            List<String> methods = fetchDataService.fetchMethodCalls();
         try {
             result = new NameDto();
             Method methodInstance;
 
-            methodInstance = NameProcessing.class.
-                    getMethod("processNameSpaces", NameProcessDto.class);
-            nameFlow
-                    = (NameProcessDto) methodInstance.
-                    invoke(nameProcessingInstance, nameFlow);
-
-            methodInstance = NameProcessing.class.
-                    getMethod("processLastName", NameProcessDto.class);
-            nameFlow
-                    = (NameProcessDto) methodInstance.
-                    invoke(nameProcessingInstance, nameFlow);
+            for (String method : methods) {
+                methodInstance = NameProcessing.class.
+                        getMethod(method, NameProcessDto.class);
+                nameFlow
+                        = (NameProcessDto) methodInstance.
+                        invoke(nameProcessingInstance, nameFlow);
+            }
 
             result.setLastName(nameFlow.getName().getLastName());
             result.setFirstName(nameFlow.getName().getFirstName());
         } catch (Exception e) {
-
         }
 
         return result;
     }
-
 }
