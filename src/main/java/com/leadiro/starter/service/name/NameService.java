@@ -72,6 +72,7 @@ public class NameService implements FetchDataService<String> {
         // TODO contents here are supposed to be in the database
         //  order of execution should also be considered
         methodCall.add("processNameSpaces");
+        methodCall.add("processNoneNameCharacters");
         methodCall.add("processLastName");
         methodCall.add("processFirstName");
         return methodCall;

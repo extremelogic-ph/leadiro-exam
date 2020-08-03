@@ -123,5 +123,15 @@ public class NameProcessing {
     //  - in surname/lastname refer to each other
     //  - detect acronyms
     //  - check suffixes I II, Jr, Sr
+    // TODO probably create also a abstract class for the flow itself
+    // TODO consider also soundex
+
+    public NameProcessDto processNoneNameCharacters(final NameProcessDto name) {
+        NameProcessDto result = name;
+        String processing = result.getProcessing();
+        processing = processing.replaceAll("[^0-9a-zA-Z .']+", "").trim();
+        result.setProcessing(processing);
+        return result;
+    }
 }
 
