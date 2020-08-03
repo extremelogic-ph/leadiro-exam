@@ -1,9 +1,7 @@
 package com.leadiro.starter.service.name;
 
-import com.leadiro.starter.service.FetchDataService;
 import com.leadiro.starter.service.name.dto.NameDto;
 import com.leadiro.starter.service.name.dto.NameProcessDto;
-
 import java.util.List;
 
 public class NameProcessing {
@@ -14,12 +12,6 @@ public class NameProcessing {
     public NameProcessing() {
 
     }
-
-    /**
-     * Data lookup.
-     * TODO This data fetching should be redesigned to make this class reusable
-     */
-    private FetchDataService fetchDataService = new FetchDataService();
 
     /**
      * Process spaces input.
@@ -49,9 +41,10 @@ public class NameProcessing {
         List<String> lastNameLookUp;
         processing = result.getProcessing();
         Boolean lastNameFound = false;
+        LastNameData lastNameData = new LastNameData();
 
         // TODO This is being loaded repeatedly. Refactor.
-        lastNameLookUp = fetchDataService.fetchLastNames();
+        lastNameLookUp = lastNameData.fetchData();
 
         // TODO Permutation of input is needed here,
         //  a last name may contain a combination of more than 1
@@ -91,9 +84,10 @@ public class NameProcessing {
         List<String> firstNameLookUp;
         processing = result.getProcessing();
         Boolean firstNameFound = false;
+        FirstNameData firstNameData = new FirstNameData();
 
         // TODO This is being loaded repeatedly. Refactor.
-        firstNameLookUp = fetchDataService.fetchFirstNames();
+        firstNameLookUp = firstNameData.fetchData();
 
         // TODO Permutation of input is needed here,
         //  a last name may contain a combination of more than 1
@@ -122,3 +116,4 @@ public class NameProcessing {
         return result;
     }
 }
+
