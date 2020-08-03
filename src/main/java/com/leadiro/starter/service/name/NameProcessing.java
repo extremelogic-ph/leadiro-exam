@@ -115,5 +115,13 @@ public class NameProcessing {
                 result.getName().getFirstName(), ""));
         return result;
     }
+
+    // TODO other methods
+    //  - clean non alpha numeric characters to help normalize input
+    //  - remove consecutive dots
+    //  - detect prefixes
+    //  - in surname/lastname refer to each other
+    //  - detect acronyms
+    //  - check suffixes I II, Jr, Sr
 }
 
