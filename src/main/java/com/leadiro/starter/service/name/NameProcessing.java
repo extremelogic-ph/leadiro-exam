@@ -18,13 +18,15 @@ public class NameProcessing {
      * @param name Input to process
      * @return processed input
      */
-    public NameProcessDto processNameSpaces(final NameProcessDto name) {
+    public NameProcessDto processRepeating(final NameProcessDto name) {
         String processing;
         NameProcessDto result = name;
         processing = name.getProcessing();
 
         // remove redundant spaces
         processing = processing.replaceAll("[ ]+", " ").trim();
+        processing = processing.replaceAll("[.]+", ".").trim();
+        processing = processing.replaceAll("[']+", "'").trim();
         result.setProcessing(processing);
 
         return result;
