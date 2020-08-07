@@ -1,7 +1,7 @@
 
 app:
-  version: starter-master-1
-  timestamp: Thu Jun 18 15:32:18 UTC 2020
+  version: search-feat/swagger-31
+  timestamp: Fri Aug  7 03:32:19 UTC 2020
 
 server:
   port: 8090
@@ -60,4 +60,4 @@ exam:
         email:
       license:
       licenseUrl:
-    host: 'localhost:8090'
+    host: ''

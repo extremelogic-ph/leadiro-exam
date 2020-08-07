@@ -90,7 +90,7 @@ public class SwaggerConfig {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .host(host)
+                //.host(host)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage(
                         "com.leadiro.starter.controller"))
