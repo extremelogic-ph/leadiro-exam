@@ -1,15 +1,13 @@
 package com.leadiro.starter.service.name;
 
 import com.leadiro.starter.service.FetchDataService;
-import org.springframework.util.ResourceUtils;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class FirstNameData implements FetchDataService<String> {
 
@@ -21,13 +19,17 @@ public class FirstNameData implements FetchDataService<String> {
         List<String> names = null;
         try {
             // TODO Load this into a database
-            File file = ResourceUtils.getFile("classpath:data/firstname.txt");
-            try (Stream<String> stream = Files.lines(
-                    Paths.get(file.getPath()))) {
-                names = stream.collect(Collectors.toList());
-            } catch (IOException e) {
-                e.printStackTrace();
+            InputStream s = FirstNameData.class.getClassLoader()
+                    .getResourceAsStream(
+                            "data" + File.separator + "firstname.txt");
+            String line;
+            names = new ArrayList<>();
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(s));
+            while ((line = br.readLine()) != null) {
+                names.add(line);
             }
+            br.close();
         } catch (Exception e) {
         }
         return names;
