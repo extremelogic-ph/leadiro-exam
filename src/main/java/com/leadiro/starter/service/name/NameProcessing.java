@@ -1,9 +1,7 @@
 package com.leadiro.starter.service.name;
 
-import com.leadiro.starter.service.FetchDataService;
 import com.leadiro.starter.service.name.dto.NameDto;
 import com.leadiro.starter.service.name.dto.NameProcessDto;
-
 import java.util.List;
 
 public class NameProcessing {
@@ -16,23 +14,19 @@ public class NameProcessing {
     }
 
     /**
-     * Data lookup.
-     * TODO This data fetching should be redesigned to make this class reusable
-     */
-    private FetchDataService fetchDataService = new FetchDataService();
-
-    /**
      * Process spaces input.
      * @param name Input to process
      * @return processed input
      */
-    public NameProcessDto processNameSpaces(final NameProcessDto name) {
+    public NameProcessDto processRepeating(final NameProcessDto name) {
         String processing;
         NameProcessDto result = name;
         processing = name.getProcessing();
 
         // remove redundant spaces
         processing = processing.replaceAll("[ ]+", " ").trim();
+        processing = processing.replaceAll("[.]+", ".").trim();
+        processing = processing.replaceAll("[']+", "'").trim();
         result.setProcessing(processing);
 
         return result;
@@ -49,9 +43,10 @@ public class NameProcessing {
         List<String> lastNameLookUp;
         processing = result.getProcessing();
         Boolean lastNameFound = false;
+        LastNameData lastNameData = new LastNameData();
 
         // TODO This is being loaded repeatedly. Refactor.
-        lastNameLookUp = fetchDataService.fetchLastNames();
+        lastNameLookUp = lastNameData.fetchData();
 
         // TODO Permutation of input is needed here,
         //  a last name may contain a combination of more than 1
@@ -91,9 +86,10 @@ public class NameProcessing {
         List<String> firstNameLookUp;
         processing = result.getProcessing();
         Boolean firstNameFound = false;
+        FirstNameData firstNameData = new FirstNameData();
 
         // TODO This is being loaded repeatedly. Refactor.
-        firstNameLookUp = fetchDataService.fetchFirstNames();
+        firstNameLookUp = firstNameData.fetchData();
 
         // TODO Permutation of input is needed here,
         //  a last name may contain a combination of more than 1
@@ -121,4 +117,23 @@ public class NameProcessing {
                 result.getName().getFirstName(), ""));
         return result;
     }
+
+    // TODO other methods
+    //  - clean non alpha numeric characters to help normalize input
+    //  - remove consecutive dots
+    //  - detect prefixes
+    //  - in surname/lastname refer to each other
+    //  - detect acronyms
+    //  - check suffixes I II, Jr, Sr
+    // TODO probably create also a abstract class for the flow itself
+    // TODO consider also soundex
+
+    public NameProcessDto processNoneNameCharacters(final NameProcessDto name) {
+        NameProcessDto result = name;
+        String processing = result.getProcessing();
+        processing = processing.replaceAll("[^0-9a-zA-Z .']+", "").trim();
+        result.setProcessing(processing);
+        return result;
+    }
 }
+

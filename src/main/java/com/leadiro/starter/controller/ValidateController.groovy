@@ -1,5 +1,9 @@
 package com.leadiro.starter.controller;
 
+
+import com.leadiro.starter.service.email.ValidateEmailService
+import com.leadiro.starter.service.postalcode.ValidatePostalCodeService;
+import groovy.transform.CompileStatic;
 import com.leadiro.starter.service.ValidateService;
 import groovy.transform.CompileStatic
 import io.swagger.annotations.ApiOperation
@@ -15,10 +19,16 @@ import org.springframework.web.bind.annotation.RestController;
 @CompileStatic
 public class ValidateController {
     /**
-     * Use validate service.
+     * Use validate email service.
      */
     @Autowired
-    private ValidateService validateService;
+    private ValidateEmailService validateEmail;
+
+    /**
+     * Use validate post code service.
+     */
+    @Autowired
+    private ValidatePostalCodeService validatePostCodeService;
 
     /**
      * Validate email.
@@ -31,7 +41,7 @@ public class ValidateController {
     def validateEmail(
             @RequestParam(value = "email", required = true)
             final String email) {
-        return validateService.validateEmail(email);
+        return validateEmail.validate(email);
     }
 
     /**
@@ -45,6 +55,6 @@ public class ValidateController {
     def validatePostCode(
             @RequestParam(value = "postcode", required = true)
             final String postCode) {
-        return validateService.validatePostCode(postCode);
+        return validatePostCodeService.validate(postCode);
     }
 }

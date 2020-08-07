@@ -4,7 +4,6 @@ import com.leadiro.starter.service.FetchDataService;
 import com.leadiro.starter.service.name.dto.NameDto;
 import com.leadiro.starter.service.name.dto.NameProcessDto;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Method;
@@ -13,13 +12,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class NameService {
-    /**
-     * Data needed.
-     */
-    @Autowired
-    private FetchDataService fetchDataService;
-
+public class NameService implements FetchDataService<String> {
     /**
      * Process a list of names.
      * @param names List of names
@@ -34,7 +27,8 @@ public class NameService {
             nameProcessDto.setProcessing(name);
 
             nameDto = process(nameProcessDto);
-            if (!(nameDto.getFirstName().isEmpty() && nameDto.getLastName().isEmpty())) {
+            if (!(nameDto.getFirstName().isEmpty()
+                    && nameDto.getLastName().isEmpty())) {
                 nameDtos.add(nameDto);
             }
         }
@@ -46,7 +40,8 @@ public class NameService {
         NameDto result = null;
 
         NameProcessing nameProcessingInstance = new NameProcessing();
-            List<String> methods = fetchDataService.fetchMethodCalls();
+            List<String> methods = fetchData();
+
         try {
             result = new NameDto();
             Method methodInstance;
@@ -65,5 +60,21 @@ public class NameService {
         }
 
         return result;
+    }
+
+    /**
+     * Retrieve method calls for cleansing flow.
+     * @return List of method name to call
+     */
+    @Override
+    public List<String> fetchData() {
+        List<String> methodCall = new ArrayList<>();
+        // TODO contents here are supposed to be in the database
+        //  order of execution should also be considered
+        methodCall.add("processRepeating");
+        methodCall.add("processNoneNameCharacters");
+        methodCall.add("processLastName");
+        methodCall.add("processFirstName");
+        return methodCall;
     }
 }
