@@ -1,6 +1,6 @@
 package com.leadiro.starter.controller;
 
-import com.leadiro.starter.service.SearchService;
+import com.leadiro.starter.service.search.SearchService;
 import groovy.transform.CompileStatic
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.Authorization;
