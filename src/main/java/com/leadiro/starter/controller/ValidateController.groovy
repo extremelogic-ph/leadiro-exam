@@ -1,7 +1,7 @@
 package com.leadiro.starter.controller;
 
 
-import com.leadiro.starter.service.email.ValidateEmailService
+import com.leadiro.starter.service.email.ValidateEmailService;
 import com.leadiro.starter.service.postalcode.ValidatePostalCodeService;
 import groovy.transform.CompileStatic;
 import com.leadiro.starter.service.ValidateService;
